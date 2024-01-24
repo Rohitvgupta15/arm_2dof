@@ -1,0 +1,86 @@
+<?xml version="1.0" ?>
+<robot name="arm_2dof" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find arm_2dof_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find arm_2dof_description)/urdf/arm_2dof.trans" />
+<xacro:include filename="$(find arm_2dof_description)/urdf/arm_2dof.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.007190904835301532 -0.007661084791884393 0.01721920682118904" rpy="0 0 0"/>
+    <mass value="0.02484644401179895"/>
+    <inertia ixx="3e-06" iyy="2e-06" izz="5e-06" ixy="-0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_2dof_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_2dof_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="servo_emax_9g_horn_Domyslna_1">
+  <inertial>
+    <origin xyz="0.00012471928486684249 0.006684230894218328 0.02220529968883025" rpy="0 0 0"/>
+    <mass value="0.10500129664229604"/>
+    <inertia ixx="1.9e-05" iyy="1.5e-05" izz="1.9e-05" ixy="-0.0" iyz="-4e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.007191 0.011294 -0.01741" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_2dof_description/meshes/servo_emax_9g_horn_Domyslna_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.007191 0.011294 -0.01741" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_2dof_description/meshes/servo_emax_9g_horn_Domyslna_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="pantilt_3_Domyslna_1">
+  <inertial>
+    <origin xyz="0.015033332944940702 -0.007016810815117265 0.011565982070664664" rpy="0 0 0"/>
+    <mass value="0.025707768034284914"/>
+    <inertia ixx="3e-06" iyy="4e-06" izz="5e-06" ixy="0.0" iyz="1e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.012152 -0.015704 -0.05701" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_2dof_description/meshes/pantilt_3_Domyslna_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.012152 -0.015704 -0.05701" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://arm_2dof_description/meshes/pantilt_3_Domyslna_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="joint 1" type="revolute">
+  <origin xyz="0.007191 -0.011294 0.01741" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="servo_emax_9g_horn_Domyslna_1"/>
+  <axis xyz="0.0 0.0 -1.0"/>
+  <limit upper="4.712389" lower="1.570796" effort="100" velocity="100"/>
+</joint>
+
+<joint name="joint2" type="revolute">
+  <origin xyz="-0.019343 0.026998 0.0396" rpy="0 0 0"/>
+  <parent link="servo_emax_9g_horn_Domyslna_1"/>
+  <child link="pantilt_3_Domyslna_1"/>
+  <axis xyz="-0.999986 -0.005275 0.0"/>
+  <limit upper="3.403392" lower="0.261799" effort="100" velocity="100"/>
+</joint>
+
+</robot>
